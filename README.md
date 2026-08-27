@@ -1,5 +1,7 @@
 # MatchIt2
 
+**[Download for Android](https://bdseemann.github.io/MatchIt2/)**
+
 A modern rewrite of [MatchIt](https://github.com/bdseemann/MatchIt), a memory-matching card
 game originally built in 2012 for an Android mobile development course. The original was an
 Eclipse-era project targeting Android 2.2 (API 8), built with plain `Activity`/`View` code,
