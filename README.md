@@ -1,5 +1,9 @@
 # MatchIt2
 
+[![Latest release](https://img.shields.io/github/v/release/bdseemann/MatchIt2)](https://github.com/bdseemann/MatchIt2/releases/latest)
+[![License: Unlicense](https://img.shields.io/github/license/bdseemann/MatchIt2)](LICENSE)
+[![Kotlin](https://img.shields.io/badge/kotlin-2.0-blueviolet?logo=kotlin&logoColor=white)](https://kotlinlang.org)
+
 **[Download for Android](https://bdseemann.github.io/MatchIt2/)**
 
 A modern rewrite of [MatchIt](https://github.com/bdseemann/MatchIt), a memory-matching card
@@ -44,3 +48,8 @@ command line:
 ## Credits
 
 Card artwork carried over from the original 2012 project.
+
+## License
+
+Released into the public domain under [The Unlicense](LICENSE) — copy it, modify it, use it
+for anything, no attribution required.
