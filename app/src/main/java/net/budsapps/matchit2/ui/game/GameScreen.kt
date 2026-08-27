@@ -6,15 +6,12 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -42,6 +39,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import net.budsapps.matchit2.R
 import net.budsapps.matchit2.model.Card
@@ -121,32 +119,57 @@ fun GameScreen(
     }
 }
 
+/** Width:height ratio of the card artwork, used to size tiles without distorting them. */
+private const val CardAspectRatio = 0.75f
+private val BoardSpacing = 8.dp
+
 @Composable
 private fun GameBoard(state: GameState, onCardClick: (Int) -> Unit) {
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(columnsFor(state.difficulty)),
-        contentPadding = PaddingValues(8.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-        modifier = Modifier.fillMaxSize()
+    val gridSize = gridSizeFor(state.difficulty)
+
+    BoxWithConstraints(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(8.dp),
+        contentAlignment = Alignment.Center
     ) {
-        items(state.cards, key = { it.position }) { card ->
-            val isFaceUp = card.isMatched || card.position == state.selectedPosition
-            CardTile(
-                card = card,
-                isFaceUp = isFaceUp,
-                onClick = { onCardClick(card.position) }
-            )
+        // Fit tiles to whichever dimension is tighter so the whole board is always
+        // visible without scrolling, rather than letting width alone drive height.
+        val maxCellWidth = (maxWidth - BoardSpacing * (gridSize.columns - 1)) / gridSize.columns
+        val maxCellHeight = (maxHeight - BoardSpacing * (gridSize.rows - 1)) / gridSize.rows
+        val cellWidth: Dp
+        val cellHeight: Dp
+        if (maxCellWidth / CardAspectRatio <= maxCellHeight) {
+            cellWidth = maxCellWidth
+            cellHeight = maxCellWidth / CardAspectRatio
+        } else {
+            cellHeight = maxCellHeight
+            cellWidth = maxCellHeight * CardAspectRatio
+        }
+
+        Column(verticalArrangement = Arrangement.spacedBy(BoardSpacing)) {
+            state.cards.chunked(gridSize.columns).forEach { rowCards ->
+                Row(horizontalArrangement = Arrangement.spacedBy(BoardSpacing)) {
+                    rowCards.forEach { card ->
+                        val isFaceUp = card.isMatched || card.position == state.selectedPosition
+                        CardTile(
+                            card = card,
+                            isFaceUp = isFaceUp,
+                            onClick = { onCardClick(card.position) },
+                            modifier = Modifier.size(cellWidth, cellHeight)
+                        )
+                    }
+                }
+            }
         }
     }
 }
 
 @Composable
-private fun CardTile(card: Card, isFaceUp: Boolean, onClick: () -> Unit) {
+private fun CardTile(card: Card, isFaceUp: Boolean, onClick: () -> Unit, modifier: Modifier = Modifier) {
     val borderColor = if (card.isMatched) MatchedCardBorder else MaterialTheme.colorScheme.outline
     Box(
-        modifier = Modifier
-            .aspectRatio(0.75f)
+        modifier = modifier
             .clip(RoundedCornerShape(8.dp))
             .background(MaterialTheme.colorScheme.surfaceVariant)
             .border(2.dp, borderColor, RoundedCornerShape(8.dp))

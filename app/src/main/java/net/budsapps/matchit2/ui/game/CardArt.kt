@@ -16,11 +16,13 @@ fun cardDrawableRes(value: Int): Int = when (value) {
     else -> R.drawable.card_8
 }
 
-/** Column count for a reasonably square board per difficulty, in portrait orientation. */
-fun columnsFor(difficulty: Difficulty): Int = when (difficulty) {
-    Difficulty.VERY_EASY -> 2
-    Difficulty.EASY -> 2
-    Difficulty.MEDIUM -> 2
-    Difficulty.HARD -> 3
-    Difficulty.VERY_HARD -> 4
+/** Row/column count for a board that fits the screen without scrolling, in portrait orientation. */
+fun gridSizeFor(difficulty: Difficulty): GridSize = when (difficulty) {
+    Difficulty.VERY_EASY -> GridSize(rows = 3, columns = 2)
+    Difficulty.EASY -> GridSize(rows = 4, columns = 2)
+    Difficulty.MEDIUM -> GridSize(rows = 5, columns = 2)
+    Difficulty.HARD -> GridSize(rows = 4, columns = 3)
+    Difficulty.VERY_HARD -> GridSize(rows = 4, columns = 4)
 }
+
+data class GridSize(val rows: Int, val columns: Int)
