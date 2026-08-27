@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MatchIt2</title>
+<style>
+  :root {
+    --bg: #12131a;
+    --card: #1c1e29;
+    --text: #f2f2f6;
+    --muted: #9a9ba8;
+    --accent: #ffc107;
+    --accent-text: #1a1300;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    padding: 2.5rem 1.25rem 4rem;
+  }
+  main { max-width: 480px; width: 100%; }
+  h1 {
+    font-size: 2rem;
+    margin: 0 0 0.25rem;
+    letter-spacing: -0.02em;
+  }
+  .subtitle {
+    color: var(--muted);
+    margin: 0 0 1.75rem;
+    line-height: 1.5;
+  }
+  .card-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+  .card-strip img {
+    width: 100%;
+    aspect-ratio: 0.75;
+    object-fit: contain;
+    background: var(--card);
+    border-radius: 10px;
+    padding: 0.5rem;
+  }
+  .download-btn {
+    display: block;
+    text-align: center;
+    background: var(--accent);
+    color: var(--accent-text);
+    font-weight: 700;
+    font-size: 1.05rem;
+    text-decoration: none;
+    padding: 1rem;
+    border-radius: 12px;
+    margin-bottom: 0.6rem;
+  }
+  .download-btn:active { opacity: 0.85; }
+  .meta {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin: 0 0 2rem;
+  }
+  .meta a { color: var(--muted); }
+  section {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 1.25rem 1.25rem 1.4rem;
+    margin-bottom: 1rem;
+  }
+  section h2 {
+    font-size: 1rem;
+    margin: 0 0 0.75rem;
+  }
+  ol {
+    margin: 0;
+    padding-left: 1.15rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  ol li::marker { color: var(--text); }
+  .note {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0.9rem 0 0;
+  }
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.8rem;
+    margin-top: 2rem;
+  }
+  footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <h1>MatchIt2</h1>
+  <p class="subtitle">A card-matching memory game. Modern Kotlin + Jetpack Compose rewrite of a 2012 Android class project.</p>
+
+  <div class="card-strip">
+    <img src="cards/card_1.png" alt="">
+    <img src="cards/card_3.png" alt="">
+    <img src="cards/card_5.png" alt="">
+    <img src="cards/card_7.png" alt="">
+  </div>
+
+  <a class="download-btn" href="https://github.com/bdseemann/MatchIt2/releases/download/v2.0.0/matchit2-v2.0.0-debug.apk">
+    Download MatchIt2 v2.0.0 (APK)
+  </a>
+  <p class="meta">Requires Android 8.0+ &middot; <a href="https://github.com/bdseemann/MatchIt2/releases">all releases</a> &middot; <a href="https://github.com/bdseemann/MatchIt2">source</a></p>
+
+  <section>
+    <h2>Installing on your phone</h2>
+    <ol>
+      <li>Open this page in your phone's browser and tap the download button above.</li>
+      <li>Open the downloaded file from your notifications or Downloads app.</li>
+      <li>Android will ask to allow installing from this source the first time &mdash; allow it.</li>
+      <li>Tap Install.</li>
+    </ol>
+    <p class="note">This is a debug-signed APK, not distributed through the Play Store, so Android shows a warning before installing &mdash; that's expected for a sideloaded app like this one.</p>
+  </section>
+
+  <footer>
+    <a href="https://github.com/bdseemann/MatchIt2">github.com/bdseemann/MatchIt2</a>
+  </footer>
+</main>
+</body>
+</html>
